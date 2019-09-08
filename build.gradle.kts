@@ -39,7 +39,9 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.axonframework:axon-spring-boot-starter:$axonVersion")
+    implementation("org.axonframework:axon-spring-boot-starter:$axonVersion") {
+        exclude(group = "org.axonframework", module = "axon-server-connector")
+    }
 
     testImplementation("org.axonframework:axon-test:$axonVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.1")
