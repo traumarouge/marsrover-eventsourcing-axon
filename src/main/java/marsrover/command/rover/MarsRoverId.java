@@ -5,7 +5,7 @@ import marsrover.command.Identifier;
 
 public final class MarsRoverId extends Identifier {
 
-    MarsRoverId(String uuid) {
+    public MarsRoverId(String uuid) {
 
         super(uuid);
     }

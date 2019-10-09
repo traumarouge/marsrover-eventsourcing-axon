@@ -48,4 +48,5 @@ dependencies {
     testImplementation("org.axonframework:axon-test:$axonVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.1")
     testImplementation("org.assertj:assertj-core:3.13.2")
+    testImplementation("org.hamcrest:hamcrest:2.1")
 }

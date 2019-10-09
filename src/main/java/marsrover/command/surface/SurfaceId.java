@@ -5,7 +5,7 @@ import marsrover.command.Identifier;
 
 public final class SurfaceId extends Identifier {
 
-    SurfaceId(String uuid) {
+    public SurfaceId(String uuid) {
 
         super(uuid);
     }
