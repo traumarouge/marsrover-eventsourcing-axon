@@ -64,8 +64,6 @@ public class MarsRoverApplication implements CommandLineRunner {
         moveRover(roverOneId);
         moveRover(roverOneId);
 
-        Thread.sleep(250);
-
         logRoverStatus(roverOneId);
         logRoverStatus(roverTwoId);
     }
@@ -93,7 +91,6 @@ public class MarsRoverApplication implements CommandLineRunner {
     private void moveRover(MarsRoverId roverId) throws InterruptedException {
 
         commandGateway.send(new MoveRoverCommand(roverId));
-        Thread.sleep(100);
     }
 
 
