@@ -8,10 +8,17 @@ import marsrover.command.surface.Dimension;
 import marsrover.command.surface.SurfaceId;
 
 import marsrover.coreapi.rover.CreateSurfaceCommand;
+import marsrover.coreapi.rover.GetRoverStatusQuery;
 import marsrover.coreapi.rover.InitRoverLandingCommand;
 import marsrover.coreapi.rover.MoveRoverCommand;
 
+import marsrover.query.RoverStatusView;
+
 import org.axonframework.commandhandling.gateway.CommandGateway;
+
+import org.axonframework.messaging.responsetypes.ResponseTypes;
+
+import org.axonframework.queryhandling.QueryGateway;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +41,9 @@ public class MarsRoverApplication implements CommandLineRunner {
     @Autowired
     private CommandGateway commandGateway;
 
+    @Autowired
+    private QueryGateway queryGateway;
+
     public static void main(String[] args) {
 
         SpringApplication.run(MarsRoverApplication.class, args);
@@ -53,6 +63,11 @@ public class MarsRoverApplication implements CommandLineRunner {
         moveRover(roverOneId);
         moveRover(roverOneId);
         moveRover(roverOneId);
+
+        Thread.sleep(250);
+
+        logRoverStatus(roverOneId);
+        logRoverStatus(roverTwoId);
     }
 
 
@@ -79,5 +94,14 @@ public class MarsRoverApplication implements CommandLineRunner {
 
         commandGateway.send(new MoveRoverCommand(roverId));
         Thread.sleep(100);
+    }
+
+
+    private void logRoverStatus(MarsRoverId roverId) throws ExecutionException, InterruptedException {
+
+        CompletableFuture<RoverStatusView> future = queryGateway.query(new GetRoverStatusQuery(roverId),
+                ResponseTypes.instanceOf(RoverStatusView.class));
+
+        LOGGER.info(future.get().toString());
     }
 }
